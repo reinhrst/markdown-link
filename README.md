@@ -54,7 +54,7 @@ Open a markdown document, copy a URL from some place, and use start typing:
 This is [a link]
 ```
 
-Afterwards press <kbd><kbd>Ctrl</kbd>+<kbd>t</kbd> and `markdown-link` will do the work for you:
+Afterwards press <kbd><kbd>Ctrl</kbd>+<kbd>t</kbd></kbd> and `markdown-link` will do the work for you:
 
 ```md
 This is [a link][1]
