@@ -1,0 +1,63 @@
+*markdown-link*
+*MarkdownLink*
+
+MIT License Copyright (c) 2023 Reinoud Elhorst
+
+See https://github.com/reinhrst/markdown-link for more info.
+
+==============================================================================
+
+Rationale:
+This plugin allows one to quickly insert links into markdown that one is
+editing.
+
+Links in markdown can be written in muliple ways:
+
+Option 1:
+>
+[This is a link](https://link.to/target)
+<
+
+Option 2:
+>
+[This is a link][1]
+
+[1]: https://link.to/target
+<
+
+This plugin makes links of the second type.
+
+
+markdown-link.setup({opts})                       *markdown-link.setup({opts})*
+    Setup function to be run by the user. Configures what URLs are valid.
+
+    Usage:
+
+    >
+    require("markdown-link").setup{
+        valid_link_pattern = "^https?://.*".
+        -- A |lua-patterns| that descibes what things in the clipboard
+        -- will be accepted as urls
+    }
+    <
+
+markdown-link.PasteMarkdownLink()           *markdown-link.PasteMarkdownLink()*
+    Insert in link from |registers| `*` into the document, at the cursor location.
+
+    If the content of the star-register does not match the `valid_link_pattern`
+    given during setup, an error message will be shown.
+
+    Exact functionality depends on the current |vim-modes|:
+
+    - In |insert-mode|, the character before the cursor should be a `]`.
+    - In |normal-mode|, the character under the cursor should be a `]`.
+    - In [visual-mode], the selection is bracketed.
+
+    The document is searched for lines that define links:
+    `[NN]: UUU` where NN is a number. If there is already a number defined for
+    this url, that number is reused; else a new line with a new number is
+    added to the end of the document (if this is the first link, two newlines are
+    added between the text and the block of links).
+
+    Finally, the number is added to the current cursor position so that the link
+    is made.
